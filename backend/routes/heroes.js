@@ -8,7 +8,21 @@ const checkHeroes = (req, res, next) => {
   const hero = heroes.find(element => element.slug === slug)
 
   if (!hero) {
-    res.status(404).send("Not found")
+    res.status(404).send("Existing hero")
+  } else {
+    next()
+  }
+}
+
+const checkPower = (req, res, next) => {
+  const { slug } = req.params
+  const { power } = req.body
+  const hero = heroes.find(element => element.slug === slug)
+  const heroPower = hero.power.find(element => element === power)
+  //includes
+  console.log(heroPower);
+  if (heroPower) {
+    res.status(404).send("Power already added.")
   } else {
     next()
   }
@@ -40,7 +54,7 @@ app.post("/", checkHeroes, (req, res) => {
   res.json(heroes)
 })
 
-app.put("/:slug/powers", (req, res) => {
+app.put("/:slug/powers", checkPower, (req, res) => {
   const { slug } = req.params
   const { power } = req.body
 
@@ -56,7 +70,18 @@ app.delete("/:slug", checkHeroes, (req, res) => {
   const index = heroes.findIndex(element => element.slug === slug)
 
   heroes.splice(index, 1)
-  res.status(204).send("Delete success")
+  res.status(204).send("Delete hero succeeded")
+})
+
+app.delete("/:slug/power/:power", checkPower, (req, res) => {
+  const { slug, power } = req.params
+  const hero = heroes.find(element => element.slug === slug)
+  const index = hero.findIndex(element => element.power === power)
+
+  console.log(hero);
+  console.log(index);
+  // hero.power.splice(index, 1)
+  // res.status(204).send("Delete power succeeded")
 })
 
 module.exports = app
