@@ -18,6 +18,13 @@ app.get("/", (req, res) => {
   res.json(heroes)
 })
 
+app.get("/:slug", (req, res) => {
+  const { slug } = req.params
+  const hero = heroes.find(element => element.slug === slug)
+
+  res.json(hero)
+})
+
 app.get("/:slug/powers", (req, res) => {
   const { slug } = req.params
   const hero = heroes.find(element => element.slug === slug)
@@ -27,6 +34,7 @@ app.get("/:slug/powers", (req, res) => {
 
 app.post("/", checkHeroes, (req, res) => {
   const hero = req.body
+
   heroes = [ ...heroes, hero ]
 
   res.json(heroes)
@@ -35,11 +43,20 @@ app.post("/", checkHeroes, (req, res) => {
 app.put("/:slug/powers", (req, res) => {
   const { slug } = req.params
   const { power } = req.body
+
   let hero = heroes.find(element => element.slug === slug)
   hero.power = [...hero.power, power]
 
   // console.log(hero)
   res.json(heroes)
+})
+
+app.delete("/:slug", checkHeroes, (req, res) => {
+  const { slug } = req.params
+  const index = heroes.findIndex(element => element.slug === slug)
+
+  heroes.splice(index, 1)
+  res.status(204).send("Delete success")
 })
 
 module.exports = app
