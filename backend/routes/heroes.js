@@ -3,6 +3,17 @@ const app = express()
 
 let heroes = require("../heroes")
 
+const checkHeroes = (req, res, next) => {
+  const { slug } = req.params
+  const hero = heroes.find(element => element.slug === slug)
+
+  if (!hero) {
+    res.status(404).send("Not found")
+  } else {
+    next()
+  }
+}
+
 app.get("/", (req, res) => {
   res.json(heroes)
 })
@@ -14,7 +25,7 @@ app.get("/:slug/powers", (req, res) => {
   res.json(hero.power)
 })
 
-app.post("/", (req, res) => {
+app.post("/", checkHeroes, (req, res) => {
   const hero = req.body
   heroes = [ ...heroes, hero ]
 
