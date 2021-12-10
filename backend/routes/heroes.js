@@ -28,6 +28,26 @@ const checkAddPower = (req, res, next) => {
   }
 }
 
+// const checkPower = (req, res, next) => {
+//   const { slug } = req.params
+//   const hero = heroes.find(element => element.slug === slug)
+//   if (req.body) {
+//     const { power } = req.body
+//   } else {
+//     const { power } = req.params
+//   }
+//   const heroPower = hero.power.find(element => element === power)
+//   //includes
+
+//   if (heroPower && req.body) {
+//     res.status(404).send("Power already added.")
+//   } else if (!heroPower && !body) {
+//     res.status(404).send("Hero n'a pas ce pouvoir")
+//   } else {
+//     next()
+//   }
+// }
+
 const checkDeletePower = (req, res, next) => {
   const { slug, power } = req.params
   const hero = heroes.find(element => element.slug === slug)
