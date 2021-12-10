@@ -110,7 +110,6 @@ app.put("/:slug", (req, res) => {
   let index = heroes.findIndex(element => element.slug === slug)
 
   heroes[index] = req.body
-  // hero = {...req.body}
 
   res.json(heroes)
 })
