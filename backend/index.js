@@ -1,7 +1,11 @@
 const express = require("express")
-const app = express()
 const morgan = require ("morgan")
+const cors = require("cors")
+const app = express()
 const port = 5000
+
+//relier back et front
+app.use(cors())
 
 //import json
 const heroes = require("./routes/heroes")
