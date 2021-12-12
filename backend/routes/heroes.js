@@ -3,14 +3,26 @@ const app = express()
 
 let heroes = require("../heroes")
 
-const checkHeroes = (req, res, next) => {
-  const { slug } = req.params
-  const hero = heroes.find(element => element.slug === slug)
+const checkHeroesBody = (req, res, next) => {
+  const { slug } = req.body
 
+  const hero = heroes.find(element => element.slug === slug)
+  
   if (!hero) {
-    res.status(404).send("Existing hero")
-  } else {
     next()
+  } else {
+    res.status(404).send("Existing hero.")
+  }
+}
+const checkHeroesParams = (req, res, next) => {
+  const { slug } = req.params
+
+  const hero = heroes.find(element => element.slug === slug)
+  console.log(slug);
+  if (hero) {
+    next()
+  } else {
+    res.status(404).send("Hero does not exist.")
   }
 }
 
@@ -67,7 +79,7 @@ app.get("/", (req, res) => {
 })
 
 //afficher l'hero demandé
-app.get("/:slug", (req, res) => {
+app.get("/:slug", checkHeroesParams, (req, res) => {
   const { slug } = req.params
   const hero = heroes.find(element => element.slug === slug)
 
@@ -75,7 +87,7 @@ app.get("/:slug", (req, res) => {
 })
 
 //afficher les pouvoirs de l'héro
-app.get("/:slug/powers", (req, res) => {
+app.get("/:slug/powers", checkHeroesParams, (req, res) => {
   const { slug } = req.params
   const hero = heroes.find(element => element.slug === slug)
 
@@ -83,7 +95,7 @@ app.get("/:slug/powers", (req, res) => {
 })
 
 //ajouter un nouveau hero
-app.post("/", checkHeroes, (req, res) => {
+app.post("/", checkHeroesBody, (req, res) => {
   const hero = req.body
 
   heroes = [ ...heroes, hero ]
@@ -92,7 +104,7 @@ app.post("/", checkHeroes, (req, res) => {
 })
 
 //ajouter un nouveau pouvoir à l'héro
-app.put("/:slug/powers", checkAddPower, (req, res) => {
+app.put("/:slug/powers", checkHeroesParams, checkAddPower, (req, res) => {
   const { slug } = req.params
   const { power } = req.body
 
@@ -104,7 +116,7 @@ app.put("/:slug/powers", checkAddPower, (req, res) => {
 })
 
 //modifier un héro
-app.put("/:slug", (req, res) => {
+app.put("/:slug", checkHeroesParams, (req, res) => {
   const { slug } = req.params
 
   let index = heroes.findIndex(element => element.slug === slug)
@@ -115,7 +127,7 @@ app.put("/:slug", (req, res) => {
 })
 
 //Supprimer un héro
-app.delete("/:slug", checkHeroes, (req, res) => {
+app.delete("/:slug", checkHeroesParams, (req, res) => {
   const { slug } = req.params
   const index = heroes.findIndex(element => element.slug === slug)
 
@@ -124,7 +136,7 @@ app.delete("/:slug", checkHeroes, (req, res) => {
 })
 
 //supprimer le pouvoir d'un héro
-app.delete("/:slug/power/:power", checkHeroes, checkDeletePower, (req, res) => {
+app.delete("/:slug/power/:power", checkHeroesParams, checkDeletePower, (req, res) => {
   const { slug, power } = req.params
   const hero = heroes.find(element => element.slug === slug)
   const index = hero.power.findIndex(element => element === power)
