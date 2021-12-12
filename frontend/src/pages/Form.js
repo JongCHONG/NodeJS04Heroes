@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Form = () => {
+  const [slug, setSlug] = useState()
+  const [name, setName] = useState()
+  const [age, setAge] = useState()
+  const [color, setColor] = useState()
+  const [image, setImage] = useState()
+  const [power, setPower] = useState()
+  const [isAlive, setIsAlive] = useState()
+  const [isAdded, setisAdded] = useState(false)
+  
   return (
     <form>
       <h1>Create your own Avenger!</h1>
@@ -18,6 +27,10 @@ const Form = () => {
       </div>
       <div className="mb-3">
         <label className="form-label">Image url: </label>
+        <input type="text" className="form-control" />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Power: </label>
         <input type="text" className="form-control" />
       </div>
       <div className="mb-3">
