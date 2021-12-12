@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Hero = props => {
+const HeroImage = props => {
   const { image, slug } = props
 
   return (
     <>
         <div 
-          className="col-4"
+          className="col-4 my-2" 
         >
           <Link to={`/heroes/${slug}`}>  
             <div 
@@ -21,4 +21,4 @@ const Hero = props => {
   )
 }
 
-export default Hero
+export default HeroImage

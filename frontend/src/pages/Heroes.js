@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
-import Hero from '../components/HeroImage'
+import HeroImage from '../components/HeroImage'
 import HeroCard from '../components/HeroCard'
 
 const Heroes = () => {
@@ -34,7 +34,7 @@ const Heroes = () => {
         <div className="row">
           {heroes.map((element, index) => {
             return (
-              <Hero 
+              <HeroImage 
                 key={index} 
                 slug={element.slug}
                 image={element.image}
