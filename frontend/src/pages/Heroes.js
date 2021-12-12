@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import Hero from '../components/HeroImage'
 import HeroCard from '../components/HeroCard'
@@ -23,7 +23,14 @@ const Heroes = () => {
     <>
       {!slug ? 
       <>
-        <h1>The Avengers</h1>
+        <div className="row">
+          <div className='col-6'>
+            <h1>The Avengers</h1>
+          </div>
+          <div className='col-6 text-end'>
+            <Link to="/form">Create a new Avenger...</Link>
+          </div>
+        </div>
         <div className="row">
           {heroes.map((element, index) => {
             return (

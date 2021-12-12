@@ -16,8 +16,8 @@ const HeroCard = () => {
   if (!hero) {
     return "Chargement..."    
   }
-
-  console.log(hero.power)
+  // const test = hero.power.length
+  // console.log(test)
   return (
     <>
       <div 
@@ -30,7 +30,7 @@ const HeroCard = () => {
       <p>Age : {hero.age}</p>
       <p>Status : {hero.isAlive ? "Alive" : "Dead"}</p>
       <p>Color : {hero.color}</p>
-      <p>Power : {hero.power.join(', ')}</p>
+      {/* <p>Power : {hero.power.length > 1 ? hero.power : hero.power.join(', ')}</p> */}
     </>
   )
 }
