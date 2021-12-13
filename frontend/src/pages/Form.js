@@ -71,7 +71,7 @@ const Form = () => {
     setImage(e.target.value)
   }
   const handleOnChangePower = e => {
-    setPower([e.target.value])
+    setPower([e.target.value.split(",")])
   }
   const handleOnChangeIsAlive = e => {
     if (e.target.value === "false") {
@@ -115,6 +115,7 @@ const Form = () => {
         <div className="mb-3">
           <label className="form-label">Power: </label>
           <input type="text" className="form-control" value={power} onChange={handleOnChangePower} />
+          <label className="form-label text-danger">Separate your power by <span className='fw-bolder text-warning'>,</span></label>
         </div>
         <div className="mb-3">
           <label className="form-label">Is he/she alive? : </label>

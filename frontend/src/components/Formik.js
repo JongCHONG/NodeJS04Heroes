@@ -1,22 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
+import { useNavigate } from 'react-router-dom'
 
 const Formik = props => {
-  const { name, age, color, isAlive, image, power } = props.editHero
+  const navigate = useNavigate()
+  const { name, age, color, isAlive, image, power, slug } = props.editHero
+  const [isEdited, setIsEdited] = useState(false)
 
   const formik = useFormik({
     initialValues: {
       name,
-      age,
-      color,
-      image,
-      isAlive,
       power,
+      color,
+      isAlive,
+      age,
+      image,
     },
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
-    },
+      const newValues = {
+        slug: values.name.toLowerCase(),
+        ...values
+      }
+
+      fetch(`http://localhost:5000/heroes/${slug}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newValues)
+      })
+      .then(() => navigate('/'))
+        // alert(JSON.stringify(newValues, null, 2))
+    }
   })
 
   // console.log(props.editHero.image)
@@ -78,17 +94,25 @@ const Formik = props => {
           </div>
           <div className="mb-3 d-flex">
             <label htmlFor="power" className="align-self-center form-label me-3" >Power</label>
-            {power.map((element, index) => 
+            {/* {power.map((element, index) => 
               <input
                 key={element}
-                id={`power[${index}]`}
+                id="power"
                 name={`power[${index}]`}
                 type="text"
                 className="form-control me-3"
                 onChange={formik.handleChange}
                 value={element}
               />
-            )}
+            )} */}
+              <input
+                id="power"
+                name="power"
+                type="text"
+                className="form-control me-3"
+                onChange={formik.handleChange}
+                value={formik.values.power}
+              />
           </div>
 
           <button className="btn btn-outline-success" type="submit">Submit</button>

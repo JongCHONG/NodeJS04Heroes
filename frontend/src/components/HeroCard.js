@@ -25,7 +25,7 @@ const HeroCard = () => {
     fetch(`http://localhost:5000/heroes/${slug}`, {
       method: "delete",
     })
-    .then (() => navigate('/')) //attendre que fetch finit de delete
+    .then(() => navigate('/')) //attendre que fetch finit de delete
   }
   const handleModifyStatus = () => {
     if (modifyStatus) {
@@ -75,7 +75,7 @@ const HeroCard = () => {
         <p>Color : {hero.color}</p>
         <p>Power : </p>
         {hero.power.map(element => 
-          <p key={element}>{element}</p>
+          <p key={element}>{element.join(", ")}</p>
         )}
       </>
       }
