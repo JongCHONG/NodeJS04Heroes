@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
 const Form = () => {
-  const [slug, setSlug] = useState()
-  const [name, setName] = useState()
-  const [age, setAge] = useState()
-  const [color, setColor] = useState()
-  const [image, setImage] = useState()
-  const [power, setPower] = useState()
-  const [isAlive, setIsAlive] = useState()
+  const [slug, setSlug] = useState("")
+  const [name, setName] = useState("")
+  const [age, setAge] = useState("")
+  const [color, setColor] = useState("")
+  const [image, setImage] = useState("")
+  const [power, setPower] = useState("")
+  const [isAlive, setIsAlive] = useState("")
   const [isAdded, setIsAdded] = useState(false)
   const [error, setError] = useState(null)
   
@@ -49,6 +49,12 @@ const Form = () => {
       )
 
     setIsAdded(true)
+    setSlug(name)
+    setName("")
+    setAge("")
+    setColor("")
+    setImage("")
+    setPower("")
   }
 
   const handleOnChangeName = e => {
@@ -85,30 +91,30 @@ const Form = () => {
         </div>
         <div className='col-6 text-end text-danger align-self-center'>
           <h2>
-            {isAdded && `Avenger ${name} created!`}
+            {isAdded && `Avenger ${slug} created!`}
             {error && "Avenger already exist.."}
           </h2>
         </div>
       </div>
         <div className="mb-3">
           <label className="form-label">Name : </label>
-          <input type="text" className="form-control" onChange={handleOnChangeName} />
+          <input type="text" className="form-control" value={name} onChange={handleOnChangeName} />
         </div>
         <div className="mb-3">
           <label className="form-label">Age : </label>
-          <input type="number" className="form-control" min="1" max="99" onChange={handleOnChangeAge} />
+          <input type="number" className="form-control" value={age} min="1" max="99" onChange={handleOnChangeAge} />
         </div>
         <div className="mb-3">
           <label className="form-label">Color : </label>
-          <input type="text" className="form-control" onChange={handleOnChangeColor} />
+          <input type="text" className="form-control" value={color} onChange={handleOnChangeColor} />
         </div>
         <div className="mb-3">
           <label className="form-label">Image url: </label>
-          <input type="text" className="form-control" onChange={handleOnChangeImage} />
+          <input type="text" className="form-control" value={image} onChange={handleOnChangeImage} />
         </div>
         <div className="mb-3">
           <label className="form-label">Power: </label>
-          <input type="text" className="form-control"  onChange={handleOnChangePower} />
+          <input type="text" className="form-control" value={power} onChange={handleOnChangePower} />
         </div>
         <div className="mb-3">
           <label className="form-label">Is he/she alive? : </label>

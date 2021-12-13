@@ -15,7 +15,7 @@ const Heroes = () => {
   }, [])
 
   if (!heroes) {
-    return "Chargement..."    
+    return <p>Chargement...</p>    
   }
 
   console.log(heroes)
@@ -27,7 +27,7 @@ const Heroes = () => {
           <div className='col-6'>
             <h1>The Avengers</h1>
           </div>
-          <div className='col-6 text-end'>
+          <div className='col-6 text-end align-self-center'>
             <Link to="/form">Create a new Avenger...</Link>
           </div>
         </div>

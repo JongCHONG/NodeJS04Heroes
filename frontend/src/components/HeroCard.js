@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import Form from '../pages/Form'
 
 const HeroCard = () => {
+  const navigate = useNavigate()
   const { slug } = useParams()
-  const [hero, setHero] = useState([])
+  const [hero, setHero] = useState(null)
+  const [modifyStatus, setModifyStatus] = useState(false)
 
   useEffect(() => {
     if (slug) {
@@ -14,10 +18,20 @@ const HeroCard = () => {
   }, [slug])
 
   if (!hero) {
-    return "Chargement..."    
+    return <p>Chargement...</p>   
   }
-  // const test = hero.power.length
-  // console.log(test)
+
+  const handleDeleteHero = () => {
+    fetch(`http://localhost:5000/heroes/${slug}`, {
+      method: "delete",
+    })
+    .then (() => navigate('/')) //attendre que fetch finit de delete
+  }
+  const handleModifyStatus = () => {
+    setModifyStatus(true)
+  }
+
+  // console.log(hero)
   return (
     <>
       <div 
@@ -25,12 +39,36 @@ const HeroCard = () => {
         style={{ backgroundImage: `url(${hero.image}` }}
       >
       </div>
-      <h1>{hero.name}</h1>
+      <div className='row'>
+        <div className='col-6'>
+          <h1>{hero.name}</h1>
+        </div>
+        <div className='col-6 text-end align-self-center'>
+          <button 
+            type="button" 
+            className="btn btn-outline-warning mx-2"
+            onClick={handleModifyStatus}
+          >
+            Edit Avenger
+          </button>
+          <button 
+            type="button" 
+            className="btn btn-outline-danger" 
+            onClick={handleDeleteHero} 
+          >
+            Disintegrate Avenger...
+          </button>
+        </div>
+      </div>
       <p>Name : {hero.name}</p>
       <p>Age : {hero.age}</p>
       <p>Status : {hero.isAlive ? "Alive" : "Dead"}</p>
       <p>Color : {hero.color}</p>
-      {/* <p>Power : {hero.power.length > 1 ? hero.power : hero.power.join(', ')}</p> */}
+      <p>Power : </p>
+      {hero.power.map(element => 
+        <p key={element}>{element}</p>
+      )}
+      {!modifyStatus && <Form />}
     </>
   )
 }
