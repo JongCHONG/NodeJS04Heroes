@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import Form from '../pages/Form'
+import Formik from './Formik'
 
 const HeroCard = () => {
   const navigate = useNavigate()
@@ -28,7 +28,11 @@ const HeroCard = () => {
     .then (() => navigate('/')) //attendre que fetch finit de delete
   }
   const handleModifyStatus = () => {
-    setModifyStatus(true)
+    if (modifyStatus) {
+      setModifyStatus(false)
+    } else {
+      setModifyStatus(true)
+    }
   }
 
   // console.log(hero)
@@ -60,15 +64,21 @@ const HeroCard = () => {
           </button>
         </div>
       </div>
-      <p>Name : {hero.name}</p>
-      <p>Age : {hero.age}</p>
-      <p>Status : {hero.isAlive ? "Alive" : "Dead"}</p>
-      <p>Color : {hero.color}</p>
-      <p>Power : </p>
-      {hero.power.map(element => 
-        <p key={element}>{element}</p>
-      )}
-      {!modifyStatus && <Form />}
+
+      {!modifyStatus ? 
+       <Formik editHero={hero}/>
+      :
+      <>
+        <p>Name : {hero.name}</p>
+        <p>Age : {hero.age}</p>
+        <p>Status : {hero.isAlive ? "Alive" : "Dead"}</p>
+        <p>Color : {hero.color}</p>
+        <p>Power : </p>
+        {hero.power.map(element => 
+          <p key={element}>{element}</p>
+        )}
+      </>
+      }
     </>
   )
 }

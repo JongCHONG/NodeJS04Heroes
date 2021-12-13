@@ -102,7 +102,7 @@ const Form = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">Age : </label>
-          <input type="number" className="form-control" value={age} min="1" max="99" onChange={handleOnChangeAge} />
+          <input type="number" className="form-control" value={age} min="1" max="300" onChange={handleOnChangeAge} />
         </div>
         <div className="mb-3">
           <label className="form-label">Color : </label>
@@ -119,6 +119,7 @@ const Form = () => {
         <div className="mb-3">
           <label className="form-label">Is he/she alive? : </label>
           <select className="form-select" aria-label="Default select example" onChange={handleOnChangeIsAlive} >
+            <option value="">--Please choose an option--</option>
             <option defaultValue="true">Yes</option>
             <option value="false">No</option>
           </select>
