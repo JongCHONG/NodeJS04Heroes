@@ -4,9 +4,9 @@ const app = express()
 let heroes = require("../heroes")
 
 const checkHeroesBody = (req, res, next) => {
-  const { slug } = req.body
+  const { name } = req.body
 
-  const hero = heroes.find(element => element.slug === slug)
+  const hero = heroes.find(element => element.name === name)
   
   if (!hero) {
     next()
@@ -40,26 +40,6 @@ const checkAddPower = (req, res, next) => {
   }
 }
 
-// const checkPower = (req, res, next) => {
-//   const { slug } = req.params
-//   const hero = heroes.find(element => element.slug === slug)
-//   if (req.body) {
-//     const { power } = req.body
-//   } else {
-//     const { power } = req.params
-//   }
-//   const heroPower = hero.power.find(element => element === power)
-//   //includes
-
-//   if (heroPower && req.body) {
-//     res.status(404).send("Power already added.")
-//   } else if (!heroPower && !body) {
-//     res.status(404).send("Hero n'a pas ce pouvoir")
-//   } else {
-//     next()
-//   }
-// }
-
 const checkDeletePower = (req, res, next) => {
   const { slug, power } = req.params
   const hero = heroes.find(element => element.slug === slug)
@@ -68,6 +48,20 @@ const checkDeletePower = (req, res, next) => {
 
   if (!heroPower) {
     res.status(404).send("Hero n'a pas ce pouvoir")
+  } else {
+    next()
+  }
+}
+
+const validateHero = (req, res, next) => {
+  // Object.keys permet de recuperer dans un tableau de string
+  // toutes les clés de mon objet en parametre
+  const allowedKeys = Object.keys(heroes[0])
+  const bodyKeys = Object.keys(req.body)
+  const invalidKey = bodyKeys.find(key => !allowedKeys.includes(key))
+
+  if (invalidKey) {
+    res.status(400).send("Requete invalide")
   } else {
     next()
   }
@@ -95,7 +89,7 @@ app.get("/:slug/powers", checkHeroesParams, (req, res) => {
 })
 
 //ajouter un nouveau hero
-app.post("/", checkHeroesBody, (req, res) => {
+app.post("/", checkHeroesBody, validateHero, (req, res) => {
   const hero = req.body
 
   heroes = [ ...heroes, hero ]
@@ -120,9 +114,9 @@ app.put("/:slug", (req, res) => {
 
   let index = heroes.findIndex(element => element.slug === slug)
 
-  heroes[index] = {...req.body}
+  heroes[index] = { ...heroes[index], ...req.body }
 
-  res.json(heroes)
+  res.json(heroes[index])
 })
 
 //Supprimer un héro
