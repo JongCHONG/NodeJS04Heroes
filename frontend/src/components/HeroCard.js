@@ -15,7 +15,7 @@ const HeroCard = () => {
         .then(response => response.json())
         .then(data => setHero(data))
     }
-  }, [slug])
+  }, [slug, modifyStatus])
 
   if (!hero) {
     return <p>Chargement...</p>   
@@ -69,7 +69,7 @@ const HeroCard = () => {
         </div>
       </div>
 
-      {!modifyStatus ? 
+      {modifyStatus ? 
        <Formik editHero={hero}/>
       :
       <>

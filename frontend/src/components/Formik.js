@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const Formik = props => {
   const navigate = useNavigate()
   const { name, age, color, isAlive, image, power, slug } = props.editHero
-  const [isEdited, setIsEdited] = useState(false)
+  // const [isEdited, setIsEdited] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -24,6 +24,11 @@ const Formik = props => {
         ...values
       }
       newValues.power = values.power.split(',')
+      if (values.isAlive === "No") {
+        newValues.isAlive = false
+      } else {
+        newValues.isAlive = true
+      }
       
       fetch(`http://localhost:5000/heroes/${slug}`, {
         method: "put",
@@ -76,21 +81,16 @@ const Formik = props => {
             >
               {formik.values.isAlive === "true" ? 
                 <>
-                  <option value="true" selected>Yes</option>
+                  <option defaultValue="true" >Yes</option>
                   <option value="false">No</option>
                 </>
               :
                 <>
                   <option value="true">Yes</option>
-                  <option value="false" selected>No</option>
+                  <option defaultValue="false" >No</option>
                 </>
               }
             </select>
-            {/* <Field id="isAlive" name="isAlive" as="select" className="my-select">
-              <option value="true">Red</option>
-              <option value="false">Green</option>
-              <option value="blue">Blue</option>
-            </Field> */}
           </div>
           <div className="mb-3 d-flex">
             <label htmlFor="color" className="align-self-center form-label me-3" >Color</label>
@@ -114,17 +114,18 @@ const Formik = props => {
               value={formik.values.image}
             />
           </div>
+          <label className="form-label text-danger">Separate your power by <span className='fw-bolder text-warning'>,</span></label>
           <div className="mb-3 d-flex">
             <label htmlFor="power" className="align-self-center form-label me-3" >Power</label>
             {/* {power.map((element, index) => 
               <input
-                key={element}
-                id="power"
-                name={`power[${index}]`}
-                type="text"
-                className="form-control me-3"
-                onChange={formik.handleChange}
-                value={element}
+              key={element}
+              id="power"
+              name={`power[${index}]`}
+              type="text"
+              className="form-control me-3"
+              onChange={formik.handleChange}
+              value={element}
               />
             )} */}
               <input
