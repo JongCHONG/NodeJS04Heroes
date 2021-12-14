@@ -111,17 +111,16 @@ app.put("/:slug/powers", checkHeroesParams, checkAddPower, (req, res) => {
   let hero = heroes.find(element => element.slug === slug)
   hero.power = [...hero.power, power]
 
-  // console.log(hero)
   res.json(heroes)
 })
 
 //modifier un héro
-app.put("/:slug", checkHeroesParams, (req, res) => {
+app.put("/:slug", (req, res) => {
   const { slug } = req.params
 
   let index = heroes.findIndex(element => element.slug === slug)
 
-  heroes[index] = req.body
+  heroes[index] = {...req.body}
 
   res.json(heroes)
 })
