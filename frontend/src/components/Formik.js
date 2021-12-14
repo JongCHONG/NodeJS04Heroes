@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import { useFormik, Formik, Field, Form } from 'formik'
+import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
-const Formik2 = props => {
+const Formik = props => {
   const navigate = useNavigate()
   const { name, age, color, isAlive, image, power, slug } = props.editHero
   const [isEdited, setIsEdited] = useState(false)
@@ -11,17 +11,20 @@ const Formik2 = props => {
   const formik = useFormik({
     initialValues: {
       name,
-      power,
+      power: power.join(','),
       color,
       isAlive,
       age,
       image,
     },
     onSubmit: values => {
-      const newValues = {
+      let newValues = {}
+      newValues = {
         slug: values.name.toLowerCase(),
         ...values
       }
+      newValues.power = values.power.split(',')
+      
       fetch(`http://localhost:5000/heroes/${slug}`, {
         method: "put",
         headers: {
@@ -38,8 +41,7 @@ const Formik2 = props => {
   // console.log(props.editHero.image)
   return (
     <div>
-      <Formik>
-       <Form onSubmit={formik.handleSubmit}>
+       <form onSubmit={formik.handleSubmit}>
           <div className="mb-3 d-flex">
             <label htmlFor="name" className="align-self-center form-label me-3" >Name</label>
             <input
@@ -136,10 +138,9 @@ const Formik2 = props => {
           </div>
 
           <button className="btn btn-outline-success" type="submit">Submit</button>
-        </Form>
-      </Formik>
+        </form>
     </div>
   )
 }
 
-export default Formik2
+export default Formik

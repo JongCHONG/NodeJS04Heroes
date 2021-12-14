@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import Formik2 from './Formik'
+import Formik from './Formik'
 
 const HeroCard = () => {
   const navigate = useNavigate()
@@ -70,7 +70,7 @@ const HeroCard = () => {
       </div>
 
       {!modifyStatus ? 
-       <Formik2 editHero={hero}/>
+       <Formik editHero={hero}/>
       :
       <>
         <p>Name : {hero.name}</p>
