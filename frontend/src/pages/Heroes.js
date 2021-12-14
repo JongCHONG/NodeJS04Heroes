@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 
 import HeroImage from '../components/HeroImage'
 import HeroCard from '../components/HeroCard'
 
 const Heroes = () => {
   const { slug } = useParams()
+  const location = useLocation()
   const [heroes, setHeroes] = useState([])
 
   useEffect(() => {
@@ -13,6 +14,12 @@ const Heroes = () => {
       .then(response => response.json())
       .then(data => setHeroes(data))
   }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:5000/heroes')
+    .then(response => response.json())
+    .then(data => setHeroes(data))
+  },[location.pathname])
 
   if (!heroes) {
     return <p>Chargement...</p>    

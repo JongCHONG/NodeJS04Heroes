@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import { useFormik } from 'formik'
+import { useFormik, Formik, Field, Form } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
-const Formik = props => {
+const Formik2 = props => {
   const navigate = useNavigate()
   const { name, age, color, isAlive, image, power, slug } = props.editHero
   const [isEdited, setIsEdited] = useState(false)
@@ -22,7 +22,6 @@ const Formik = props => {
         slug: values.name.toLowerCase(),
         ...values
       }
-
       fetch(`http://localhost:5000/heroes/${slug}`, {
         method: "put",
         headers: {
@@ -30,7 +29,8 @@ const Formik = props => {
         },
         body: JSON.stringify(newValues)
       })
-      .then(() => navigate('/'))
+      .then(response => response.json())
+      .then(data => navigate(`/heroes/${data.slug}`))
         // alert(JSON.stringify(newValues, null, 2))
     }
   })
@@ -38,7 +38,8 @@ const Formik = props => {
   // console.log(props.editHero.image)
   return (
     <div>
-       <form onSubmit={formik.handleSubmit}>
+      <Formik>
+       <Form onSubmit={formik.handleSubmit}>
           <div className="mb-3 d-flex">
             <label htmlFor="name" className="align-self-center form-label me-3" >Name</label>
             <input
@@ -65,10 +66,29 @@ const Formik = props => {
           </div>
           <div className="mb-3 d-flex">
             <label htmlFor="isAlive">Is he alive?</label>
-            <select className="form-select" >
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+            <select 
+              id="isAlive"
+              name="isAlive"
+              className="form-select" 
+              onChange={formik.handleChange} 
+            >
+              {formik.values.isAlive === "true" ? 
+                <>
+                  <option value="true" selected>Yes</option>
+                  <option value="false">No</option>
+                </>
+              :
+                <>
+                  <option value="true">Yes</option>
+                  <option value="false" selected>No</option>
+                </>
+              }
             </select>
+            {/* <Field id="isAlive" name="isAlive" as="select" className="my-select">
+              <option value="true">Red</option>
+              <option value="false">Green</option>
+              <option value="blue">Blue</option>
+            </Field> */}
           </div>
           <div className="mb-3 d-flex">
             <label htmlFor="color" className="align-self-center form-label me-3" >Color</label>
@@ -116,9 +136,10 @@ const Formik = props => {
           </div>
 
           <button className="btn btn-outline-success" type="submit">Submit</button>
-        </form>
+        </Form>
+      </Formik>
     </div>
   )
 }
 
-export default Formik
+export default Formik2

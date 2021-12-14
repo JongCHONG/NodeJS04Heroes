@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import Formik from './Formik'
+import Formik2 from './Formik'
 
 const HeroCard = () => {
   const navigate = useNavigate()
@@ -24,7 +24,11 @@ const HeroCard = () => {
   const handleDeleteHero = () => {
     fetch(`http://localhost:5000/heroes/${slug}`, {
       method: "delete",
+      headers: {
+        'Content-Type' : 'application/json'
+      }
     })
+    .then(response => console.log(response))
     .then(() => navigate('/')) //attendre que fetch finit de delete
   }
   const handleModifyStatus = () => {
@@ -66,7 +70,7 @@ const HeroCard = () => {
       </div>
 
       {!modifyStatus ? 
-       <Formik editHero={hero}/>
+       <Formik2 editHero={hero}/>
       :
       <>
         <p>Name : {hero.name}</p>
@@ -75,7 +79,7 @@ const HeroCard = () => {
         <p>Color : {hero.color}</p>
         <p>Power : </p>
         {hero.power.map(element => 
-          <p key={element}>{element.join(", ")}</p>
+          <p key={element}>{element}</p>
         )}
       </>
       }
