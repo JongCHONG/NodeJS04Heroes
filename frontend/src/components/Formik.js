@@ -30,7 +30,7 @@ const Formik = props => {
         newValues.isAlive = true
       }
       
-      fetch(`http://localhost:5000/heroes/${slug}`, {
+      fetch(`https://nodejs04heroes.herokuapp.com/heroes/${slug}`, {
         method: "put",
         headers: {
           "Content-Type": "application/json"

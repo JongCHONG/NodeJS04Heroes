@@ -11,7 +11,7 @@ const HeroCard = () => {
 
   useEffect(() => {
     if (slug) {
-      fetch(`http://localhost:5000/heroes/${slug}`)
+      fetch(`https://nodejs04heroes.herokuapp.com/heroes/${slug}`)
         .then(response => response.json())
         .then(data => setHero(data))
     }
@@ -22,7 +22,7 @@ const HeroCard = () => {
   }
 
   const handleDeleteHero = () => {
-    fetch(`http://localhost:5000/heroes/${slug}`, {
+    fetch(`https://nodejs04heroes.herokuapp.com/heroes/${slug}`, {
       method: "delete",
       headers: {
         'Content-Type' : 'application/json'

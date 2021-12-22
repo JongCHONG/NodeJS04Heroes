@@ -10,13 +10,13 @@ const Heroes = () => {
   const [heroes, setHeroes] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:5000/heroes')
+    fetch('https://nodejs04heroes.herokuapp.com/heroes')
       .then(response => response.json())
       .then(data => setHeroes(data))
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:5000/heroes')
+    fetch('https://nodejs04heroes.herokuapp.com/heroes')
     .then(response => response.json())
     .then(data => setHeroes(data))
   },[location.pathname])

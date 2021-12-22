@@ -24,7 +24,7 @@ const Form = () => {
       isAlive
     }
 
-    fetch('http://localhost:5000/heroes',{
+    fetch('https://nodejs04heroes.herokuapp.com/heroes',{
       method: "post",
       headers: {
         "Content-Type": "application/json"
