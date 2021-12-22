@@ -2,7 +2,7 @@ const express = require("express")
 const morgan = require ("morgan")
 const cors = require("cors")
 const app = express()
-const port = 5000
+const port = process.env.port || 5000
 
 //relier back et front
 app.use(cors())
