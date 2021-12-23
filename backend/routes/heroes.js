@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 
 let heroes = require("../heroes")
+const reset = require("../heroes")
 
 const checkHeroesBody = (req, res, next) => {
   const { name } = req.body
@@ -136,6 +137,12 @@ app.delete("/:slug/power/:power", checkHeroesParams, checkDeletePower, (req, res
 
   hero.power.splice(index, 1)
   res.status(204).send("Delete power succeeded")
+})
+
+//reset
+app.put("/", (req, res) => {
+  heroes = reset
+  res.json(heroes)
 })
 
 module.exports = app
