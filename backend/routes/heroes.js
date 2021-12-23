@@ -141,7 +141,8 @@ app.delete("/:slug/power/:power", checkHeroesParams, checkDeletePower, (req, res
 
 //reset
 app.put("/", (req, res) => {
-  res.json(reset)
+  heroes = reset
+  res.json(heroes)
 })
 
 module.exports = app
