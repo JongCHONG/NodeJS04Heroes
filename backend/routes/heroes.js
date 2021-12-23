@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 
 let heroes = require("../heroes")
-const reset = require("../heroes")
+const reset = require("../reset")
 
 const checkHeroesBody = (req, res, next) => {
   const { name } = req.body

@@ -26,9 +26,11 @@ const Heroes = () => {
   }
 
   const handleReset = () => {
-    fetch('https://nodejs04heroes.herokuapp.com/heroes')
-      .then(response => response.json())
-      .then(data => setHeroes(data))
+    fetch(`https://nodejs04heroes.herokuapp.com/heroes/`, {
+      method: "put"
+    })
+    .then(response => response.json())
+    .then(data => setHeroes(data))
   }
 
   // console.log(location)
