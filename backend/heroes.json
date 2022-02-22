@@ -4,9 +4,9 @@
       "name": "Iron Man",
       "power": ["money"],
       "color": "red",
-      "isAlive": true,
+      "isAlive": false,
       "age": 46,
-      "image": "https://blog.fr.playstation.com/tachyon/sites/10/2019/07/unnamed-file-18.jpg?resize=1088,500&crop_strategy=smart"
+      "image": "https://movieposterhd.com/wp-content/uploads/2019/03/Iron-Man-Avengers-Endgame-Wallpaper-HD.jpg"
   },
   {
       "slug": "thor",
@@ -15,15 +15,42 @@
       "color": "blue",
       "isAlive": true,
       "age": 300,
-      "image": "https://www.bdfugue.com/media/catalog/product/cache/1/image/400x/17f82f742ffe127f42dca9de82fb58b1/9/7/9782809465761_1_75.jpg"
+      "image": "https://movieposterhd.com/wp-content/uploads/2019/03/Thor-Avengers-Endgame-Wallpaper-HD.jpg"
   },
   {
-      "slug": "daredevil",
-      "name": "Daredevil",
-      "power": ["blind"],
-      "color": "red",
+      "slug": "hulk",
+      "name": "Hulk",
+      "power": ["strength"],
+      "color": "green",
+      "isAlive": true,
+      "age": 33,
+      "image": "https://movieposterhd.com/wp-content/uploads/2019/03/Hulk-Avengers-Endgame-Wallpaper-HD.jpg"
+  },
+  {
+      "slug": "captain-america",
+      "name": "Captain America",
+      "power": ["strength"],
+      "color": "blue",
       "isAlive": false,
-      "age": 30,
-      "image": "https://aws.vdkimg.com/film/2/5/1/1/251170_backdrop_scale_1280xauto.jpg"
+      "age": 99,
+      "image": "https://wallpaperaccess.com/full/1307302.jpg"
+  },
+  {
+      "slug": "spider-man",
+      "name": "Spider-man",
+      "power": ["spider-sense"],
+      "color": "blue",
+      "isAlive": true,
+      "age": 13,
+      "image": "https://movieposterhd.com/wp-content/uploads/2019/03/Tom-Holland-Spider-man-Avengers-Endgame-Wallpaper-HD.jpg"
+  },
+  {
+      "slug": "scarlet-witch",
+      "name": "Scalet Witch",
+      "power": ["magic"],
+      "color": "red",
+      "isAlive": true,
+      "age": 29,
+      "image": "https://movieposterhd.com/wp-content/uploads/2019/03/Elizabeth-Olsen-Scarlet-Witch-Avengers-Endgame-Wallpaper-HD.jpg"
   }
 ]
